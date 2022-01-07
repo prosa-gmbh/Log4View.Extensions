@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sampleReceiver="clr-namespace:Prosa.Log4View.SampleReceiver">
+
+    <DataTemplate x:Key="SampleReceiverTemplate" DataType="{x:Type sampleReceiver:ContosoReceiverConfigVm}">
+        <sampleReceiver:ContosoReceiverConfigControl/>
+    </DataTemplate>
+</ResourceDictionary>
