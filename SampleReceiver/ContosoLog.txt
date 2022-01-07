@@ -1,0 +1,7 @@
+::Unique Contoso Log Identifier::
+2021-01-21 12:00:00|Info|OwnApp.Main|Application started 
+2021-01-21 12:01:05|Debug|OwnApp.Utilities|Calculation started 
+2021-01-21 12:01:45|Debug|OwnApp.Utilities|Calculation ended
+2021-01-21 12:02:11|Error|OwnApp.Printing|Error while initializing print engine
+2021-01-21 12:02:12|Info|OwnApp.Main|Application terminated 
+ 

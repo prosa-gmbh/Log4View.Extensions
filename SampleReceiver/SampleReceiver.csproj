@@ -31,13 +31,14 @@
     <AssemblyOriginatorKeyFile>ArbitraryKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Resource Include="Resources\glyph.png" />
-    <Resource Include="Resources\largeGlyph.png" />
+    <None Remove="ContosoLog.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="OldBinaries\.NET 1.1\prosa.LogAppender.dll" />
-    <Content Include="OldBinaries\log4net 1.2.10\Prosa.LogAppender.dll" />
-    <Content Include="OldBinaries\log4net 1.2.10\Prosa.LogAppender.pdb" />
+    <Content Include="ContosoLog.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\glyph.png" />
+    <Resource Include="Resources\largeGlyph.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Castle.Core">
@@ -52,7 +53,7 @@
     <PackageReference Include="log4net">
       <Version>2.0.14</Version>
     </PackageReference>
-    <PackageReference Include="Log4View.SDK" Version="1.0.2" />
+    <PackageReference Include="Log4View.SDK" Version="1.0.7" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
