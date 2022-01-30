@@ -39,7 +39,7 @@
     <PackageReference Include="log4net">
       <Version>2.0.14</Version>
     </PackageReference>
-    <PackageReference Include="Log4View.SDK" Version="1.0.7" />
+    <PackageReference Include="Log4View.SDK" Version="1.2.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe">

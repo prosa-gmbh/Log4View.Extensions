@@ -8,12 +8,10 @@
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance {x:Type local:ContosoReceiverConfigVm}}">
     <StackPanel>
-         <HeaderedContentControl Header="Message Text">
-             <TextBox Text="{Binding Filename, UpdateSourceTrigger=PropertyChanged}" Margin="0 4 0 0"/>
-         </HeaderedContentControl>
+         <Label Content="File Name:"/>
+         <TextBox Text="{Binding Filename}" Margin="4"/>
 
-        <HeaderedContentControl Header="Unique Logfile ID" Margin="0 16 0 0">
-            <TextBox Text="{Binding CustomLogFileId, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="UIElement_OnPreviewTextInput" Margin="0 4 0 0"/>
-        </HeaderedContentControl>
+        <Label Content="Unique Logfile ID:" />
+        <TextBox Text="{Binding CustomLogFileId, UpdateSourceTrigger=PropertyChanged}" Margin="4"/>
     </StackPanel>
 </UserControl>

@@ -13,28 +13,28 @@
 #endregion
 
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using Prosa.Log4View.SDK;
 
 namespace Prosa.Log4View.SampleReceiver {
-    public class ContosoReceiverConfigVm : ICustomReceiverConfigurator, INotifyPropertyChanged {
+    public class ContosoReceiverConfigVm : CustomReceiverConfigVm, INotifyPropertyChanged {
 
-        private readonly ContosoConfig _config;
+        private readonly ContosoConfig _contosoConfig;
         private string _filename;
-        private string _logFileId = "::Unique Contoso Log Identifier::";
+        private string _logFileId;
 
-        public ContosoReceiverConfigVm(ICustomReceiverConfig config) {
-            _config = (ContosoConfig) config.CustomConfig;
-            Filename = _config.Filename;
-            CustomLogFileId = _config.CustomLogFileId;
+        public ContosoReceiverConfigVm(CustomReceiverFactory factory, ICustomReceiverConfig config, bool edit)
+        : base(factory, config, edit)
+        {
+            _contosoConfig = (ContosoConfig)config.CustomConfigData;
+            Filename = _contosoConfig?.Filename;
+            CustomLogFileId = _contosoConfig?.CustomLogFileId;
         }
 
         public string CustomLogFileId {
             get => _logFileId;
             set {
                 _logFileId = value;
-                IsModified = true;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -42,32 +42,25 @@ namespace Prosa.Log4View.SampleReceiver {
             get => _filename;
             set {
                 _filename = value;
-                IsModified = true;
-                OnPropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
-        public bool IsValid() {
-            return !string.IsNullOrWhiteSpace(_logFileId) && !string.IsNullOrEmpty(Filename);
+        public override bool IsValid() {
+            return !string.IsNullOrEmpty(Filename);
         }
-
-        public bool IsModified { get; private set; }
 
         /// <summary>
         /// Return true, if a configuration dialog should be shown.
         /// </summary>
-        public bool ShowDialog => true;
+        public override bool ShowConfigDialog => true;
 
-        public void WriteConfiguration()
+        /// <summary>Writes the configuration.</summary>
+        public override void WriteConfiguration()
         {
-            _config.CustomLogFileId = CustomLogFileId;
-            _config.Filename = Filename;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null) {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            _contosoConfig.CustomLogFileId = CustomLogFileId;
+            _contosoConfig.Filename = Filename;
+            Configuration.CustomConfigData = _contosoConfig;
         }
     }
 }

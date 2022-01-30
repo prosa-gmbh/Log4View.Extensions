@@ -1,5 +1,5 @@
-﻿using System.Windows.Controls;
-using System.Windows.Input;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace Prosa.Log4View.SampleReceiver
 {
@@ -11,14 +11,12 @@ namespace Prosa.Log4View.SampleReceiver
         public ContosoReceiverConfigControl()
         {
             InitializeComponent();
+
+            Loaded += OnLoaded;
         }
 
-        private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (!int.TryParse(e.Text, out int _))
-            {
-                e.Handled = true;
-            }
         }
     }
 }

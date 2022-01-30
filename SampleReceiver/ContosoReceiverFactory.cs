@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using System.Windows;
 using System.Windows.Media.Imaging;
 using JetBrains.Annotations;
 using Prism.Modularity;
@@ -19,12 +18,12 @@ namespace Prosa.Log4View.SampleReceiver
             Name = "Contoso Receiver";
             HelpKeyword = null;
             ToolTip = "Opens the custom CONTOSO log files";
-            ConfigType = new[] { typeof(ContosoConfig), };
+            ConfigTypes = new[] { typeof(ContosoConfig), };
+            Log4ViewExtensionApi.RegisterSerializableType(typeof(ContosoConfig));
 
             SmallImage = new BitmapImage(GetImageUri("glyph"));
             LargeImage = new BitmapImage(GetImageUri("largeGlyph"));
 
-            ConfigTemplate = GetDataTemplate();
             AutomationId = "ContosoReceiver";
         }
 
@@ -32,16 +31,6 @@ namespace Prosa.Log4View.SampleReceiver
         {
             var assemblyName = Assembly.GetExecutingAssembly().GetName().FullName;
             return new Uri($"pack://application:,,,/{assemblyName};component/Resources/{imageName}.png", UriKind.Absolute);
-        }
-
-        private static DataTemplate GetDataTemplate()
-        {
-            var assemblyName = Assembly.GetExecutingAssembly().GetName().FullName;
-            var uri = new Uri($"pack://application:,,,/{assemblyName};component/Resources/ViewTemplate.xaml",
-                UriKind.Absolute);
-
-            var dictionary = new ResourceDictionary { Source = uri };
-            return (DataTemplate)dictionary["SampleReceiverTemplate"];
         }
 
         public override ICustomConfigData CreateCustomConfigData()
@@ -66,9 +55,14 @@ namespace Prosa.Log4View.SampleReceiver
         /// <param name="edit">Controls, if the configuration dialog is is created to edit an existing receiver (true),
         /// or to create a new receiver (false).</param>
         /// <returns></returns>
-        public override ICustomReceiverConfigurator CreateReceiverConfigurator(ICustomReceiverConfig config, bool edit)
+        public override ICustomReceiverConfigVm CreateReceiverConfigurator(ICustomReceiverConfig config, bool edit)
         {
-            return new ContosoReceiverConfigVm(config);
+            return new ContosoReceiverConfigVm(this, config, edit);
+        }
+
+        public override Type GetViewType()
+        {
+            return typeof(ContosoReceiverConfigControl);
         }
     }
 }
