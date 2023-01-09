@@ -29,39 +29,46 @@
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>ArbitraryKey.snk</AssemblyOriginatorKeyFile>
+    <BaseOutputPath>..\bin\</BaseOutputPath>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <FileVersion>1.0.1</FileVersion>
+    <Version>1.1.0</Version>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="ContosoLog.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ContosoLog.txt" />
+    <Compile Remove="OldBinaries\**" />
+    <EmbeddedResource Remove="OldBinaries\**" />
+    <None Remove="OldBinaries\**" />
+    <Page Remove="OldBinaries\**" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\glyph.png" />
     <Resource Include="Resources\largeGlyph.png" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="DevExpress.Wpf.Grid">
+      <Version>22.2.3</Version>
+    </PackageReference>
     <PackageReference Include="JetBrains.Annotations">
-      <Version>2021.3.0</Version>
+      <Version>2022.3.1</Version>
     </PackageReference>
     <PackageReference Include="log4net">
-      <Version>2.0.14</Version>
+      <Version>2.0.15</Version>
     </PackageReference>
-    <PackageReference Include="Log4View.SDK" Version="1.2.0" />
+    <PackageReference Include="Log4View.SDK" Version="1.5.3" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="System.ComponentModel.Composition" Version="6.0.0" />
-    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="7.0.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.6.0-preview3.19128.7" />
     <PackageReference Include="System.Runtime">
       <Version>4.3.1</Version>
     </PackageReference>
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe">
-      <Version>6.0.0</Version>
+      <Version>7.0.0-preview.2.22152.2</Version>
     </PackageReference>
     <PackageReference Include="System.Threading.Tasks.Extensions">
       <Version>4.5.4</Version>
     </PackageReference>
   </ItemGroup>
-  <PropertyGroup>
-    <PostBuildEvent>xcopy $(TargetDir)$(TargetName).* $(TargetDir)Plugins\ /Y</PostBuildEvent>
-  </PropertyGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy $(TargetDir)$(TargetName).* $(TargetDir)Plugins\ /Y" />
+  </Target>
 </Project>

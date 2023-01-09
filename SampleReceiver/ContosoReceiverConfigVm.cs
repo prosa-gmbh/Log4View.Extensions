@@ -21,6 +21,7 @@ namespace Prosa.Log4View.SampleReceiver {
         private readonly ContosoConfig _contosoConfig;
         private string _filename;
         private string _logFileId;
+        private string _customTag;
 
         public ContosoReceiverConfigVm(CustomReceiverFactory factory, ICustomReceiverConfig config, bool edit)
         : base(factory, config, edit)
@@ -28,12 +29,21 @@ namespace Prosa.Log4View.SampleReceiver {
             _contosoConfig = (ContosoConfig)config.CustomConfigData;
             Filename = _contosoConfig?.Filename;
             CustomLogFileId = _contosoConfig?.CustomLogFileId;
+            CustomTag = _contosoConfig?.CustomTag;
         }
 
         public string CustomLogFileId {
             get => _logFileId;
             set {
                 _logFileId = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string CustomTag {
+            get => _customTag;
+            set {
+                _customTag = value;
                 RaisePropertyChanged();
             }
         }
@@ -59,6 +69,7 @@ namespace Prosa.Log4View.SampleReceiver {
         public override void WriteConfiguration()
         {
             _contosoConfig.CustomLogFileId = CustomLogFileId;
+            _contosoConfig.CustomTag = CustomTag;
             _contosoConfig.Filename = Filename;
             Configuration.CustomConfigData = _contosoConfig;
         }

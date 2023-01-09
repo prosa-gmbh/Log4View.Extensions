@@ -11,7 +11,10 @@
          <Label Content="File Name:"/>
          <TextBox Text="{Binding Filename}" Margin="4"/>
 
-        <Label Content="Unique Logfile ID:" />
-        <TextBox Text="{Binding CustomLogFileId, UpdateSourceTrigger=PropertyChanged}" Margin="4"/>
+         <Label Content="Unique Logfile ID:" />
+         <TextBox Text="{Binding CustomLogFileId, UpdateSourceTrigger=PropertyChanged}" Margin="4"/>
+
+         <Label Content="Custom Tag:" />
+         <TextBox Text="{Binding CustomTag, UpdateSourceTrigger=PropertyChanged}" Margin="4"/>
     </StackPanel>
 </UserControl>

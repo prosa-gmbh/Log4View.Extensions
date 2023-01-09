@@ -19,9 +19,11 @@ namespace Prosa.Log4View.SampleReceiver
     [DataContract, Serializable]
     public class ContosoConfig : ICustomConfigData
     {
-        public ContosoConfig()
+        public ContosoConfig(string filename)
         {
+            Filename = filename;
             CustomLogFileId = "::Unique Contoso Log Identifier::";
+            CustomTag = string.Empty;
         }
 
         [DataMember]
@@ -29,6 +31,9 @@ namespace Prosa.Log4View.SampleReceiver
 
         [DataMember]
         public string CustomLogFileId { get; set; }
+
+        [DataMember]
+        public string CustomTag { get; set; }
 
         public string SourceDescription => Filename;
         public string ReceiverTypeId => "ContosoReceiver";

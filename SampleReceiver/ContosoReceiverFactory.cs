@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Windows.Media.Imaging;
 using JetBrains.Annotations;
@@ -33,9 +34,9 @@ namespace Prosa.Log4View.SampleReceiver
             return new Uri($"pack://application:,,,/{assemblyName};component/Resources/{imageName}.png", UriKind.Absolute);
         }
 
-        public override ICustomConfigData CreateCustomConfigData()
+        public override ICustomConfigData CreateCustomConfigData(string filename)
         {
-            return new ContosoConfig();
+            return new ContosoConfig(filename);
         }
 
         public override IReceiverPlugin CreateReceiverPlugin(ICustomReceiver receiverCore, IReceiverConfig config)
@@ -55,7 +56,7 @@ namespace Prosa.Log4View.SampleReceiver
         /// <param name="edit">Controls, if the configuration dialog is is created to edit an existing receiver (true),
         /// or to create a new receiver (false).</param>
         /// <returns></returns>
-        public override ICustomReceiverConfigVm CreateReceiverConfigurator(ICustomReceiverConfig config, bool edit)
+        public override CustomReceiverConfigVm CreateReceiverConfigurator(ICustomReceiverConfig config, bool edit)
         {
             return new ContosoReceiverConfigVm(this, config, edit);
         }
@@ -63,6 +64,11 @@ namespace Prosa.Log4View.SampleReceiver
         public override Type GetViewType()
         {
             return typeof(ContosoReceiverConfigControl);
+        }
+
+        public override bool CanReadFile(string filename)
+        {
+            return Path.GetExtension(filename).ToLowerInvariant() == ".clog";
         }
     }
 }

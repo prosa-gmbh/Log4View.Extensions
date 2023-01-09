@@ -6,10 +6,12 @@ namespace Prosa.Log4View.SampleReceiver
     class ContosoParser : MessageParser
     {
         private readonly string _fileId;
+        private readonly string _customTag;
 
-        public ContosoParser(ILogReceiver receiver, string sourceId, string fileId) : base(receiver, sourceId)
+        public ContosoParser(ILogReceiver receiver, string sourceId, string fileId, string customTag) : base(receiver, sourceId)
         {
             _fileId = fileId;
+            _customTag = customTag;
         }
 
         public override IMessageBlock Parse(IInputBuffer buffer, int? maxMessageCount = null)
@@ -33,6 +35,7 @@ namespace Prosa.Log4View.SampleReceiver
                         message.LogLevel = Receiver.Levels.Get(parts[1]);
                         message.Logger = parts[2];
                         message.Message = parts[3];
+                        message.SetField("Custom Tag", _customTag);
                         mb.Add(message);                        
                     }
                 }
